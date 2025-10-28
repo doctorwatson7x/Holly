@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For Holly — With All My Love</title>
+<meta name="description" content="A simple love letter with a heart cursor and a YouTube song." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg: #0f0f13;
+--ink: #f7f7fb;
+--muted: #cfd0da;
+--accent: #ff6b6b;
+--glass: rgba(255,255,255,.06);
+--radius: 22px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+margin:0; color:var(--ink); background:
+radial-gradient(900px 900px at 15% -10%, rgba(255,107,107,.10), transparent 60%),
+radial-gradient(700px 700px at 110% 10%, rgba(255,214,165,.10), transparent 60%),
+linear-gradient(180deg, #0b0b0e, var(--bg));
+font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+line-height:1.7; overflow-x:hidden; cursor:none;
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px}
+header{padding:60px 0 20px;text-align:center}
+h1{font-family:"Playfair Display",serif;font-size:clamp(34px,6vw,58px);margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+
+
+.card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+
+
+.letter{font-size:1.15rem}
+.letter p{margin:0 0 14px}
+
+
+footer{color:var(--muted); text-align:center; padding:40px 0}
+
+
+.cursor-heart{position:fixed; left:0; top:0; width:26px; height:26px; pointer-events:none; z-index:1000; translate:-50% -50%; filter: drop-shadow(0 4px 10px rgba(255,107,107,.35));}
+.cursor-heart svg{width:100%; height:100%}
+.trail{position:fixed; width:14px; height:14px; pointer-events:none; z-index:999; translate:-50% -50%; opacity:.18; animation:floatOut .9s ease-out forwards}
+.trail svg{width:100%; height:100%}
+@keyframes floatOut{ to{ transform:translateY(-10px) scale(1.2); opacity:0 } }
+
+
+@media (prefers-reduced-motion: reduce){ .trail{display:none} }
+</style>
+</head>
+<body>
+<div class="cursor-heart" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6-4.35-9.33-8.22C-.5 7.39 3.24 1 8.4 4.28 10.08 5.32 12 7.5 12 7.5s1.92-2.18 3.6-3.22C20.76 1 24.5 7.39 21.33 12.78 18 16.65 12 21 12 21z"/></svg>
+</div>
+
+
+<main class="wrap">
+<header>
+<h1>For my lovebug.</h1>
+<p class="sub">This website will always be here as a reminder of how much I love you.</p>
+</header>
+
+
+<section class="card letter" aria-labelledby="love-letter">
+<h2 id="love-letter" style="font-family:'Playfair Display',serif;margin-top:0">A Love Letter</h2>
+<p>Holly,</p>
+<p>Thank you for making every day unforgettable. I have loved you since the day I met you. You should know that I am so grateful to be able to spend life with you, and every moment with you by my side is a moment that I cherish. Whether it's a night out with you and Mia, or a quiet night in watching movies, it's the best night of my life every time.</p>
+<p>Here’s to more cozy nights, amazing days, and all the ups and downs in between. I love you, always and forever.</p>
+<p>Happy Anniversary— J</p>
+</section>
+
+
+<section class="card" style="margin-top:24px; text-align:center">
+<h2 style="font-family:'Playfair Display',serif;margin-bottom:12px">Our Song</h2>
+<p style="color:var(--muted)">Replace the link below with your song’s YouTube URL (use the VIDEO_ID part).</p>
+<!-- 🧡 Replace VIDEO_ID below with your YouTube video ID -->
+<iframe width="560" height="315"
+src="https://www.youtube.com/watch?v=RKwpWqOrSA8"
+title="YouTube video player" frameborder="0"
+allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</section>
+
+
+<footer>
+<p>Made with love by John · <span id="year"></span></p>
+</footer>
+</main>
+
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+
+const cursor = document.querySelector('.cursor-heart');
+let lastX = window.innerWidth/2, lastY = window.innerHeight/2;
+let rafID = null;
+window.addEventListener('mousemove', (e)=>{
+lastX = e.clientX; lastY = e.clientY;
+if(!rafID){
+rafID = requestAnimationFrame(()=>{
+cursor.style.transform = `translate(${lastX}px, ${lastY}px)`;
+rafID = null;
+});
+}
+const t = document.createElement('div');
+t.className = 'trail';
+t.style.left = lastX + 'px';
+t.style.top = lastY + 'px';
+t.innerHTML = `<svg viewBox='0 0 24 24' fill='currentColor'><path d='M12 21s-6-4.35-9.33-8.22C-.5 7.39 3.24 1 8.4 4.28 10.08 5.32 12 7.5 12 7.5s1.92-2.18 3.6-3.22C20.76 1 24.5 7.39 21.33 12.78 18 16.65 12 21 12 21z'/></svg>`;
+document.body.appendChild(t);
+setTimeout(()=> t.remove(), 900);
+}, {passive:true});
+
+
+window.addEventListener('touchmove', (e)=>{
+const touch = e.touches[0];
+if(!touch) return;
+cursor.style.transform = `translate(${touch.clientX}px, ${touch.clientY}px)`;
+}, {passive:true});
+</script>
+</body>
+</html>
